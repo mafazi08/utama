@@ -1,0 +1,3 @@
+Options +FollowSymLinks
+RewriteCond %{THE_REQUEST} ^.*/index.html
+RewriteRule ^(.*)index.html$ http://localhost/bagi_kasih_template-master/view/ [R=301,L]
