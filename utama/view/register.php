@@ -4,7 +4,10 @@ $database = new database();
 if(isset($_POST['register']))
 {
     $username = $_POST['username'];
-    $password = password_hash($_POST['password'],PASSWORD_DEFAULT);
+    $method = 'aes-256-cbc';
+    $key = 'daffa';
+    $iv = chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0);
+    $password = base64_encode(openssl_encrypt($_POST['password'],$method, $key, OPENSSL_RAW_DATA, $iv));
     $nama = $_POST['nama'];
     if($database->register($username,$password,$nama))
     {

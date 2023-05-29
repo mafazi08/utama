@@ -21,7 +21,10 @@ class database{
 	{
 		$query = mysqli_query($this->koneksi,"select * from tb_user where username='$username'");
 		$data_user = $query->fetch_array();
-		if(password_verify($password,$data_user['password']))
+		$method = 'aes-256-cbc';
+    $key = 'daffa';
+    $iv = chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0);
+		if($password==openssl_decrypt(base64_decode($data_user['password']),$method, $key, OPENSSL_RAW_DATA, $iv)) 
 		{
 			
 			if($remember)
